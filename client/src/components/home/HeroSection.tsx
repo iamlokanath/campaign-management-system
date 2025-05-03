@@ -1,10 +1,11 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import '../../styles/home/HeroSection.css';
 
-const HeroSection: React.FC = () => {
-    const navigate = useNavigate();
+interface HeroSectionProps {
+    navigate: (path: string) => void;
+}
 
+const HeroSection: React.FC<HeroSectionProps> = ({ navigate }) => {
     return (
         <section id="home" className="hero-section">
             <div className="hero-content">
@@ -12,13 +13,13 @@ const HeroSection: React.FC = () => {
                 <p>Create, manage, and optimize your campaigns with our powerful platform</p>
                 <button
                     className="cta-button"
-                    onClick={() => navigate('/new-campaign')}
+                    onClick={() => navigate('/campaign-list')}
                 >
                     Create New Campaign
                 </button>
             </div>
             <div className="hero-image">
-                <img src="/Image/hero2.png" alt="Campaign Management" />
+                <img src="/Image/hero.png" alt="Campaign Management" />
             </div>
         </section>
     );

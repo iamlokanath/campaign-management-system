@@ -1,7 +1,33 @@
-import React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import '../../styles/home/AboutSection.css';
 
+function useCountUp(target: number, duration = 1200) {
+    const [count, setCount] = useState(0);
+    const ref = useRef<HTMLDivElement>(null);
+    useEffect(() => {
+        let start = 0;
+        let startTime: number | null = null;
+        let frame: number;
+        const animate = (timestamp: number) => {
+            if (!startTime) startTime = timestamp;
+            const progress = Math.min((timestamp - startTime) / duration, 1);
+            setCount(Math.floor(progress * (target - start) + start));
+            if (progress < 1) {
+                frame = requestAnimationFrame(animate);
+            } else {
+                setCount(target);
+            }
+        };
+        frame = requestAnimationFrame(animate);
+        return () => cancelAnimationFrame(frame);
+    }, [target, duration]);
+    return count;
+}
+
 const AboutSection: React.FC = () => {
+    const campaigns = useCountUp(1000);
+    const clients = useCountUp(500);
+    const satisfaction = useCountUp(99);
     return (
         <section id="about" className="about-section">
             <h2>About Us</h2>
@@ -11,15 +37,15 @@ const AboutSection: React.FC = () => {
                 </div>
                 <div className="about-stats">
                     <div className="stat-item">
-                        <h3>1000+</h3>
+                        <h3>{campaigns}+</h3>
                         <p>Campaigns Created</p>
                     </div>
                     <div className="stat-item">
-                        <h3>500+</h3>
+                        <h3>{clients}+</h3>
                         <p>Happy Clients</p>
                     </div>
                     <div className="stat-item">
-                        <h3>99%</h3>
+                        <h3>{satisfaction}%</h3>
                         <p>Satisfaction Rate</p>
                     </div>
                 </div>

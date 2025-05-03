@@ -21,13 +21,13 @@
 .logo {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #1a1a1a;
+  color: #000000;
   letter-spacing: -0.5px;
   z-index: 1010;
 }
 
 .logo span {
-  color: #4299e1;
+  color: #000000;
 }
 
 .nav-links {

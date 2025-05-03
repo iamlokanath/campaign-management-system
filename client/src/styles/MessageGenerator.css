@@ -117,7 +117,7 @@
 }
 
 .generate-button {
-  background-color: #673ab7;
+  background-color: #4299e1;
   color: white;
   width: 100%;
   margin-top: 0.5rem;
@@ -125,7 +125,7 @@
 }
 
 .generate-button:hover {
-  background-color: #5e35b1;
+  background-color: #2290ea;
   box-shadow: 0 6px 15px rgba(103, 58, 183, 0.3);
 }
 

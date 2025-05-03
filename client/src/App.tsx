@@ -17,7 +17,6 @@ const App: React.FC = () => {
         <main>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/new-campaign" element={<NewCampaign />} />
             <Route path="/campaign-list" element={<CampaignList />} />
             <Route path="/create-campaign" element={<CampaignForm />} />
             <Route path="/edit-campaign/:id" element={<CampaignForm />} />

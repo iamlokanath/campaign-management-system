@@ -30,7 +30,7 @@ const Footer: React.FC<FooterProps> = ({ scrollToSection }) => {
                 </div>
             </div>
             <div className="footer-bottom">
-                <p>© {new Date().getFullYear()} Campaign Management System. All rights reserved.</p>
+                <p>© {new Date().getFullYear()} Campaign Management System. All rights reserved. This website is designed and developed by <a href="https://www.linkedin.com/in/lokanath-panda-642193238/">Lokanath Panda.</a></p>
             </div>
         </footer>
     );

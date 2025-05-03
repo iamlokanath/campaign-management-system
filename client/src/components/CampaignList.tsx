@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { API_URL } from '../config';
 import '../styles/CampaignList.css';
+import '../styles/NewCampaign.css';
 import mockServices from '../services/mockService';
 
 interface Campaign {
@@ -19,6 +20,7 @@ const CampaignList: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [useMockData, setUseMockData] = useState<boolean>(false);
     const [apiConnected, setApiConnected] = useState<boolean | null>(null);
+    const navigate = useNavigate();
 
     // Test API connection before fetching data
     const testApiConnection = async (): Promise<boolean> => {
@@ -203,102 +205,138 @@ const CampaignList: React.FC = () => {
     }
 
     return (
-        <div className="campaign-list-container">
-            <h2>Campaigns</h2>
-
-            <div className="mock-data-toggle">
-                <label>
-                    <input
-                        type="checkbox"
-                        checked={useMockData}
-                        onChange={toggleMockData}
-                    />
-                    Use mock data (for development without backend)
-                </label>
-            </div>
-
-            {error && (
-                <div className="error">
-                    <p>{error}</p>
-                    <div className="error-actions">
-                        <button
-                            className="button retry-button"
-                            onClick={() => {
-                                setError(null);
-                                fetchCampaigns();
-                            }}
-                        >
-                            Retry
-                        </button>
-
-                        {!useMockData && error.includes('Cannot connect') && (
-                            <button
-                                className="button mock-button"
-                                onClick={() => setUseMockData(true)}
-                            >
-                                Use Mock Data
-                            </button>
-                        )}
+        <div className="campaign-list-page">
+            {/* Campaign Creation Steps UI */}
+            <div className="new-campaign">
+                <div className="campaign-header">
+                    <h1>Create New Campaign</h1>
+                    <p>Start building your marketing campaign in a few simple steps</p>
+                </div>
+                <div className="campaign-steps">
+                    <div className="step">
+                        <div className="step-number">1</div>
+                        <h3>Campaign Details</h3>
+                        <p>Enter basic information about your campaign</p>
+                    </div>
+                    <div className="step">
+                        <div className="step-number">2</div>
+                        <h3>Target Audience</h3>
+                        <p>Define who you want to reach</p>
+                    </div>
+                    <div className="step">
+                        <div className="step-number">3</div>
+                        <h3>Content & Design</h3>
+                        <p>Create your campaign content</p>
+                    </div>
+                    <div className="step">
+                        <div className="step-number">4</div>
+                        <h3>Review & Launch</h3>
+                        <p>Final check and launch your campaign</p>
                     </div>
                 </div>
-            )}
-
-            {!error && campaigns.length === 0 ? (
-                <div className="no-campaigns">
-                    <p>No campaigns found. Create your first campaign!</p>
-                    <Link to="/create-campaign" className="button create-button">Create Campaign</Link>
+                <div className="campaign-actions">
+                    <button
+                        className="start-button"
+                        onClick={() => navigate('/create-campaign')}
+                    >
+                        Start Creating
+                    </button>
                 </div>
-            ) : (
-                !error && (
-                    <>
-                        <Link to="/create-campaign" className="button create-button">Create New Campaign</Link>
+            </div>
 
-                        <div className="campaign-list">
-                            {campaigns.map((campaign) => (
-                                <div key={campaign._id} className={`campaign-card ${campaign.status.toLowerCase()}`}>
-                                    <div className="campaign-header">
-                                        <h3>{campaign.name}</h3>
-                                        <span className={`status-badge ${campaign.status.toLowerCase()}`}>
-                                            {campaign.status}
-                                        </span>
-                                    </div>
+            <div className="campaign-list-container">
+                <h2>Campaigns</h2>
 
-                                    <p className="campaign-description">{campaign.description}</p>
+                {/* <div className="mock-data-toggle">
+                    <label>
+                        <input
+                            type="checkbox"
+                            checked={useMockData}
+                            onChange={toggleMockData}
+                        />
+                        Use mock data (for development without backend)
+                    </label>
+                </div> */}
 
-                                    <div className="campaign-details">
-                                        <div>
-                                            <strong>Leads:</strong> {campaign.leads.length}
+                {error && (
+                    <div className="error">
+                        <p>{error}</p>
+                        <div className="error-actions">
+                            <button
+                                className="button retry-button"
+                                onClick={() => {
+                                    setError(null);
+                                    fetchCampaigns();
+                                }}
+                            >
+                                Retry
+                            </button>
+
+                            {!useMockData && error.includes('Cannot connect') && (
+                                <button
+                                    className="button mock-button"
+                                    onClick={() => setUseMockData(true)}
+                                >
+                                    Use Mock Data
+                                </button>
+                            )}
+                        </div>
+                    </div>
+                )}
+
+                {!error && campaigns.length === 0 ? (
+                    <div className="no-campaigns">
+                        <p>No campaigns found. Create your first campaign!</p>
+                        <button className="button create-button" onClick={() => navigate('/create-campaign')}>Create Campaign</button>
+                    </div>
+                ) : (
+                    !error && (
+                        <>
+                            {/* <button className="button create-button" onClick={() => navigate('/create-campaign')}>Create New Campaign</button> */}
+                            <div className="campaign-list">
+                                {campaigns.map((campaign) => (
+                                    <div key={campaign._id} className={`campaign-card ${campaign.status.toLowerCase()}`}>
+                                        <div className="campaign-header">
+                                            <h3>{campaign.name}</h3>
+                                            <span className={`status-badge ${campaign.status.toLowerCase()}`}>
+                                                {campaign.status}
+                                            </span>
                                         </div>
-                                        <div>
-                                            <strong>Accounts:</strong> {campaign.accountIDs.length}
+                                        <p className="campaign-description">{campaign.description}</p>
+                                        <div className="campaign-details">
+                                            <div>
+                                                <strong>Leads:</strong> {campaign.leads.length}
+                                            </div>
+                                            <div>
+                                                <strong>Accounts:</strong> {campaign.accountIDs.length}
+                                            </div>
                                         </div>
-                                    </div>
-
-                                    <div className="campaign-actions">
+                                        <div className="campaign-actions">
+                                            
                                         <button
                                             className={`toggle-button ${campaign.status === 'ACTIVE' ? 'active' : 'inactive'}`}
                                             onClick={() => handleToggleStatus(campaign._id, campaign.status)}
                                         >
                                             {campaign.status === 'ACTIVE' ? 'Set Inactive' : 'Set Active'}
                                         </button>
-
                                         <Link to={`/edit-campaign/${campaign._id}`} className="button edit-button">
                                             Edit
                                         </Link>
-
                                         <button
                                             className="button delete-button"
                                             onClick={() => handleDelete(campaign._id)}
                                         >
                                             Delete
                                         </button>
+                                        
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
-                        </div>
-                    </>
-                )
-            )}
+                                ))}
+                            </div>
+                        </>
+                    )
+                )}
+            </div>
         </div>
     );
 };
