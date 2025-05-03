@@ -5,6 +5,8 @@ import CampaignList from './components/CampaignList';
 import CampaignForm from './components/CampaignForm';
 import MessageGenerator from './components/MessageGenerator';
 import Navbar from './components/Navbar';
+import HomePage from './components/HomePage';
+import NewCampaign from './components/NewCampaign';
 
 const App: React.FC = () => {
   return (
@@ -14,16 +16,15 @@ const App: React.FC = () => {
 
         <main>
           <Routes>
-            <Route path="/" element={<CampaignList />} />
+            <Route path="/" element={<HomePage />} />
+            <Route path="/new-campaign" element={<NewCampaign />} />
+            <Route path="/campaign-list" element={<CampaignList />} />
             <Route path="/create-campaign" element={<CampaignForm />} />
             <Route path="/edit-campaign/:id" element={<CampaignForm />} />
             <Route path="/message-generator" element={<MessageGenerator />} />
           </Routes>
         </main>
 
-        <footer>
-          <p>© {new Date().getFullYear()} Campaign Management System. All rights reserved.</p>
-        </footer>
       </div>
     </Router>
   );
