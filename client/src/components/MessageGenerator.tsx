@@ -92,7 +92,7 @@ const MessageGenerator: React.FC = () => {
         <div className="message-generator-container">
             <h2>LinkedIn Message Generator</h2>
 
-            <div className="mock-data-toggle">
+            {/* <div className="mock-data-toggle">
                 <label>
                     <input
                         type="checkbox"
@@ -101,7 +101,7 @@ const MessageGenerator: React.FC = () => {
                     />
                     Use mock data (for development without backend)
                 </label>
-            </div>
+            </div> */}
 
             {error && <div className="error-message">{error}</div>}
 

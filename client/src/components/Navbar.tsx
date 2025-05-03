@@ -30,7 +30,9 @@ const Navbar: React.FC = () => {
         <header className="navbar-header">
             <nav className="navbar">
                 <div className="logo">
-                    Campaign<span>Manager</span>
+                    <NavLink to="/">
+                        Campaign<span>Manager</span>
+                    </NavLink>
                 </div>
 
                 {/* Hamburger button for mobile */}
@@ -52,7 +54,7 @@ const Navbar: React.FC = () => {
 
                 <div className={`nav-links ${menuOpen ? 'active' : ''}`}>
                     <NavLink
-                        to="/"
+                        to="/campaign-list"
                         className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
                         onClick={closeMenu}
                     >

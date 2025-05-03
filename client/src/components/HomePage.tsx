@@ -6,6 +6,7 @@ import TestimonialsSection from './home/TestimonialsSection';
 import FAQSection from './home/FAQSection';
 import Footer from './home/Footer';
 import '../styles/home/HomePage.css';
+import { useNavigate } from 'react-router-dom';
 
 const HomePage: React.FC = () => {
     const [activeSection, setActiveSection] = useState('home');
@@ -18,9 +19,11 @@ const HomePage: React.FC = () => {
         }
     };
 
+    const navigate = useNavigate();
+
     return (
         <div className="home-page">
-            <HeroSection />
+            <HeroSection navigate={navigate} />
             <AboutSection />
             <FeaturesSection />
             <TestimonialsSection />

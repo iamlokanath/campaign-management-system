@@ -45,11 +45,14 @@ const CampaignForm: React.FC = () => {
 
             const data = await response.json();
 
-            // Make sure leads and accountIDs are never empty arrays for the form
-            if (data.leads.length === 0) data.leads = [''];
-            if (data.accountIDs.length === 0) data.accountIDs = [''];
-
-            setFormData(data);
+            if (data && data.success && data.data) {
+                // Make sure leads and accountIDs are never empty arrays for the form
+                if (data.data.leads.length === 0) data.data.leads = [''];
+                if (data.data.accountIDs.length === 0) data.data.accountIDs = [''];
+                setFormData(data.data);
+            } else {
+                setError('Failed to load campaign. Please try again later.');
+            }
         } catch (err) {
             setError('Failed to load campaign. Please try again later.');
             console.error(err);

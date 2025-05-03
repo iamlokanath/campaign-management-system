@@ -71,6 +71,16 @@ export const createCampaign = async (req: Request, res: Response): Promise<void>
       return;
     }
 
+    // Defensive: Parse accountIDs if it's a string
+    let parsedAccountIDs = accountIDs;
+    if (typeof parsedAccountIDs === 'string') {
+      try {
+        parsedAccountIDs = JSON.parse(parsedAccountIDs);
+      } catch {
+        parsedAccountIDs = [];
+      }
+    }
+
     // Create campaign object with validated data
     const campaignData: {
       name: string;
@@ -87,17 +97,10 @@ export const createCampaign = async (req: Request, res: Response): Promise<void>
     };
 
     // Convert accountIDs strings to ObjectIds if provided
-    if (Array.isArray(accountIDs) && accountIDs.length > 0) {
-      campaignData.accountIDs = accountIDs
-        .filter(id => id.trim() !== '')
-        .map(id => {
-          // Try to convert to ObjectId if possible, otherwise keep as string
-          try {
-            return new mongoose.Types.ObjectId(id);
-          } catch (e) {
-            return id; // Keep as string if not a valid ObjectId
-          }
-        });
+    if (Array.isArray(parsedAccountIDs) && parsedAccountIDs.length > 0) {
+      campaignData.accountIDs = parsedAccountIDs
+        .filter(id => mongoose.Types.ObjectId.isValid(id))
+        .map(id => new mongoose.Types.ObjectId(id));
     }
 
     console.log('Processed campaign data:', campaignData);
@@ -136,16 +139,18 @@ export const updateCampaign = async (req: Request, res: Response): Promise<void>
     }
 
     // Handle accountIDs conversion if provided
-    if (Array.isArray(req.body.accountIDs)) {
-      req.body.accountIDs = req.body.accountIDs
-        .filter((id: string) => id.trim() !== '')
-        .map((id: string) => {
-          try {
-            return new mongoose.Types.ObjectId(id);
-          } catch (e) {
-            return id;
-          }
-        });
+    let parsedUpdateAccountIDs = req.body.accountIDs;
+    if (typeof parsedUpdateAccountIDs === 'string') {
+      try {
+        parsedUpdateAccountIDs = JSON.parse(parsedUpdateAccountIDs);
+      } catch {
+        parsedUpdateAccountIDs = [];
+      }
+    }
+    if (Array.isArray(parsedUpdateAccountIDs)) {
+      req.body.accountIDs = parsedUpdateAccountIDs
+        .filter((id: string) => mongoose.Types.ObjectId.isValid(id))
+        .map((id: string) => new mongoose.Types.ObjectId(id));
     }
 
     const campaign = await Campaign.findByIdAndUpdate(

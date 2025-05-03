@@ -280,6 +280,12 @@
   background-color: #c8e6c9;
 }
 
+.campaign-actions{
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
 .loading, .error {
   text-align: center;
   padding: 2rem;
