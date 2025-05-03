@@ -1,0 +1,26 @@
+[
+  {
+    "text": "This platform has transformed how we manage our marketing campaigns. The results have been outstanding!",
+    "author": "John Doe",
+    "role": "Marketing Director, TechCorp",
+    "image": "/images/user1.jpg"
+  },
+  {
+    "text": "Easy to use and very effective. Our ROI improved significantly!",
+    "author": "Jane Smith",
+    "role": "CMO, MarketGenius",
+    "image": "/images/user2.jpg"
+  },
+  {
+    "text": "The analytics dashboard is a game changer. Highly recommended!",
+    "author": "Alex Lee",
+    "role": "Growth Lead, Startify",
+    "image": "/images/user3.jpg"
+  },
+  {
+    "text": "Customer support is top-notch. We love the automation features!",
+    "author": "Priya Patel",
+    "role": "Head of Marketing, InnovateX",
+    "image": "/images/user4.jpg"
+  }
+] 

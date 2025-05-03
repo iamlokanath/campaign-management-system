@@ -27,7 +27,7 @@
 }
 
 .logo span {
-  color: #4caf50;
+  color: #4299e1;
 }
 
 .nav-links {
@@ -51,9 +51,9 @@
 }
 
 .nav-link.active {
-  color: #4caf50;
+  color: #4299e1;
   font-weight: 600;
-  background-color: rgba(76, 175, 80, 0.08);
+  background-color: #c4e3fd;
 }
 
 /* Hamburger menu */
@@ -76,7 +76,7 @@
 }
 
 .hamburger.active {
-  background-color: #e8f5e9;
+  background-color: #c4e3fd;
 }
 
 .hamburger-line {
