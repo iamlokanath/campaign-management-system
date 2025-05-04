@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import HeroSection from './home/HeroSection';
 import AboutSection from './home/AboutSection';
 import FeaturesSection from './home/FeaturesSection';
@@ -9,13 +9,10 @@ import '../styles/home/HomePage.css';
 import { useNavigate } from 'react-router-dom';
 
 const HomePage: React.FC = () => {
-    const [activeSection, setActiveSection] = useState('home');
-
     const scrollToSection = (sectionId: string) => {
         const element = document.getElementById(sectionId);
         if (element) {
             element.scrollIntoView({ behavior: 'smooth' });
-            setActiveSection(sectionId);
         }
     };
 

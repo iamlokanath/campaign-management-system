@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { API_URL } from '../config';
 import '../styles/CampaignList.css';
@@ -43,7 +43,7 @@ const CampaignList: React.FC = () => {
         }
     };
 
-    const fetchCampaigns = async () => {
+    const fetchCampaigns = useCallback(async () => {
         // If using mock data, get campaigns from mock service
         if (useMockData) {
             try {
@@ -116,11 +116,11 @@ const CampaignList: React.FC = () => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [useMockData]);
 
     useEffect(() => {
         fetchCampaigns();
-    }, [useMockData]);
+    }, [fetchCampaigns]);
 
     const handleToggleStatus = async (id: string, currentStatus: string) => {
         const newStatus = currentStatus === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE';
@@ -312,23 +312,23 @@ const CampaignList: React.FC = () => {
                                             </div>
                                         </div>
                                         <div className="campaign-actions">
-                                            
-                                        <button
-                                            className={`toggle-button ${campaign.status === 'ACTIVE' ? 'active' : 'inactive'}`}
-                                            onClick={() => handleToggleStatus(campaign._id, campaign.status)}
-                                        >
-                                            {campaign.status === 'ACTIVE' ? 'Set Inactive' : 'Set Active'}
-                                        </button>
-                                        <Link to={`/edit-campaign/${campaign._id}`} className="button edit-button">
-                                            Edit
-                                        </Link>
-                                        <button
-                                            className="button delete-button"
-                                            onClick={() => handleDelete(campaign._id)}
-                                        >
-                                            Delete
-                                        </button>
-                                        
+
+                                            <button
+                                                className={`toggle-button ${campaign.status === 'ACTIVE' ? 'active' : 'inactive'}`}
+                                                onClick={() => handleToggleStatus(campaign._id, campaign.status)}
+                                            >
+                                                {campaign.status === 'ACTIVE' ? 'Set Inactive' : 'Set Active'}
+                                            </button>
+                                            <Link to={`/edit-campaign/${campaign._id}`} className="button edit-button">
+                                                Edit
+                                            </Link>
+                                            <button
+                                                className="button delete-button"
+                                                onClick={() => handleDelete(campaign._id)}
+                                            >
+                                                Delete
+                                            </button>
+
                                         </div>
                                     </div>
                                 ))}
