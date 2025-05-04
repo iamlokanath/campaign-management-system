@@ -12,7 +12,6 @@ const TestimonialsSection: React.FC = () => {
         const slider = sliderRef.current;
         if (!slider) return;
         let animationFrame: number;
-        let scrollAmount = 0;
 
         const scroll = () => {
             if (slider.scrollLeft >= slider.scrollWidth / 2) {

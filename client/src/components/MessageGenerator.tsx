@@ -84,10 +84,6 @@ const MessageGenerator: React.FC = () => {
             });
     };
 
-    const toggleMockData = () => {
-        setUseMockData(!useMockData);
-    };
-
     return (
         <div className="message-generator-container">
             <h2>LinkedIn Message Generator</h2>

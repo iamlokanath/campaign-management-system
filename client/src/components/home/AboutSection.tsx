@@ -1,9 +1,8 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../styles/home/AboutSection.css';
 
 function useCountUp(target: number, duration = 1200) {
     const [count, setCount] = useState(0);
-    const ref = useRef<HTMLDivElement>(null);
     useEffect(() => {
         let start = 0;
         let startTime: number | null = null;

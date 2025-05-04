@@ -6,7 +6,7 @@ import CampaignForm from './components/CampaignForm';
 import MessageGenerator from './components/MessageGenerator';
 import Navbar from './components/Navbar';
 import HomePage from './components/HomePage';
-import NewCampaign from './components/NewCampaign';
+// import NewCampaign from './components/NewCampaign';
 
 const App: React.FC = () => {
   return (
