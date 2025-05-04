@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { API_URL } from '../config';
 import '../styles/CampaignForm.css';
@@ -28,13 +28,7 @@ const CampaignForm: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [submitSuccess, setSubmitSuccess] = useState<boolean>(false);
 
-    useEffect(() => {
-        if (isEditMode) {
-            fetchCampaign();
-        }
-    }, [id]);
-
-    const fetchCampaign = async () => {
+    const fetchCampaign = useCallback(async () => {
         try {
             setLoading(true);
             const response = await fetch(`${API_URL}/campaigns/${id}`);
@@ -59,7 +53,13 @@ const CampaignForm: React.FC = () => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [id]);
+
+    useEffect(() => {
+        if (isEditMode) {
+            fetchCampaign();
+        }
+    }, [isEditMode, fetchCampaign]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
