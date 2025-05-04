@@ -2,10 +2,6 @@
   "name": "campaign-management-system",
   "version": "1.0.0",
   "private": true,
-  "workspaces": [
-    "client",
-    "server"
-  ],
   "scripts": {
     "start": "cd client && npm start",
     "build": "cd client && npm run build",
