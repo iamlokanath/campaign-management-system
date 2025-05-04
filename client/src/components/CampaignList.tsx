@@ -194,10 +194,6 @@ const CampaignList: React.FC = () => {
         }
     };
 
-    const toggleMockData = () => {
-        setUseMockData(!useMockData);
-    };
-
     if (loading) {
         return <div className="loading">Loading campaigns...</div>;
     }
