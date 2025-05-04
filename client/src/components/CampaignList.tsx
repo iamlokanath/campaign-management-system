@@ -16,9 +16,9 @@ interface Campaign {
 
 const CampaignList: React.FC = () => {
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [useMockData, setUseMockData] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
     const navigate = useNavigate();
 
     // Test API connection before fetching data

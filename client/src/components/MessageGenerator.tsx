@@ -21,9 +21,9 @@ const MessageGenerator: React.FC = () => {
     });
 
     const [generatedMessage, setGeneratedMessage] = useState<string>('');
+    const [useMockData] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
-    const [useMockData] = useState<boolean>(false);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
