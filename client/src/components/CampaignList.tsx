@@ -16,10 +16,9 @@ interface Campaign {
 
 const CampaignList: React.FC = () => {
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [useMockData, setUseMockData] = useState<boolean>(false);
-    const [apiConnected, setApiConnected] = useState<boolean | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
     const navigate = useNavigate();
 
     // Test API connection before fetching data
@@ -61,7 +60,6 @@ const CampaignList: React.FC = () => {
 
         // Test API connectivity first
         const isConnected = await testApiConnection();
-        setApiConnected(isConnected);
 
         if (!isConnected) {
             setError('Cannot connect to the server. Please check if the backend is running or use mock data.');
@@ -194,10 +192,6 @@ const CampaignList: React.FC = () => {
                 console.error(err);
             }
         }
-    };
-
-    const toggleMockData = () => {
-        setUseMockData(!useMockData);
     };
 
     if (loading) {

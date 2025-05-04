@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { API_URL } from '../config';
 import '../styles/CampaignForm.css';
+import axios from 'axios';
 
 interface CampaignFormData {
     name: string;
@@ -28,38 +29,21 @@ const CampaignForm: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [submitSuccess, setSubmitSuccess] = useState<boolean>(false);
 
+    const fetchCampaign = useCallback(async () => {
+        if (!id) return;
+        try {
+            const response = await axios.get(`${API_URL}/campaigns/${id}`);
+            setFormData(response.data);
+        } catch (error) {
+            console.error('Error fetching campaign:', error);
+        }
+    }, [id]);
+
     useEffect(() => {
         if (isEditMode) {
             fetchCampaign();
         }
-    }, [id]);
-
-    const fetchCampaign = async () => {
-        try {
-            setLoading(true);
-            const response = await fetch(`${API_URL}/campaigns/${id}`);
-
-            if (!response.ok) {
-                throw new Error('Failed to fetch campaign');
-            }
-
-            const data = await response.json();
-
-            if (data && data.success && data.data) {
-                // Make sure leads and accountIDs are never empty arrays for the form
-                if (data.data.leads.length === 0) data.data.leads = [''];
-                if (data.data.accountIDs.length === 0) data.data.accountIDs = [''];
-                setFormData(data.data);
-            } else {
-                setError('Failed to load campaign. Please try again later.');
-            }
-        } catch (err) {
-            setError('Failed to load campaign. Please try again later.');
-            console.error(err);
-        } finally {
-            setLoading(false);
-        }
-    };
+    }, [fetchCampaign, isEditMode]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
