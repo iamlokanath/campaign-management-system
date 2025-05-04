@@ -32,5 +32,9 @@
   },
   "engines": {
     "node": ">=16.0.0"
-  }
+  },
+  "workspaces": [
+    "client",
+    "server"
+  ]
 } 
